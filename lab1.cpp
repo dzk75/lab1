@@ -89,9 +89,9 @@ Global::Global()
 	yres = 200;
 	pos[0] = 0.0f + w;
 	pos[1] = g.yres/2.0f;
-    	color[0] = (1.0);
-    	color[1] = (0.0);
-    	color[2] = (0.0);
+    	color[0] = (1.0f);
+    	color[1] = (1.0f);
+    	color[2] = (1.0f);
 }
 
 X11_wrapper::~X11_wrapper()
@@ -276,9 +276,21 @@ void render()
 	//
 	glClear(GL_COLOR_BUFFER_BIT);
 	//Draw box.
-	if (g.xres > g.w) { 
+	if (g.xres > (2* g.w)) { 
 		glPushMatrix();
-		glColor3f(g.color[0], g.color[1], g.color[2]);
+		float addcolor = 0.0f;
+		
+		if (g.xres >= 400) {
+			addcolor = (g.xres) / 1000.0f;
+			glColor3f(g.color[0]-addcolor, g.color[1]-addcolor, g.color[2]);
+		}
+		if (g.xres < 400) {
+			addcolor = 1.0f / (g.xres/100);
+			glColor3f(g.color[0], g.color[1]-addcolor, g.color[2]-addcolor);
+		}
+		
+		//glColor3f(g.color[0]-addcolor, g.color[1], g.color[2]+addcolor);
+		//glColor3f(g.color[0], g.color[1], g.color[2]);
 		//glColor3ub(150, 160, 220);
 		glTranslatef(g.pos[0], g.pos[1], 0.0f);
 		glBegin(GL_QUADS);
