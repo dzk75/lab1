@@ -276,17 +276,19 @@ void render()
 	//
 	glClear(GL_COLOR_BUFFER_BIT);
 	//Draw box.
-	glPushMatrix();
-	glColor3f(g.color[0], g.color[1], g.color[2]);
-	//glColor3ub(150, 160, 220);
-	glTranslatef(g.pos[0], g.pos[1], 0.0f);
-	glBegin(GL_QUADS);
-		glVertex2f(-g.w, -g.w);
-		glVertex2f(-g.w,  g.w);
-		glVertex2f( g.w,  g.w);
-		glVertex2f( g.w, -g.w);
-	glEnd();
-	glPopMatrix();
+	if (g.xres > g.w) { 
+		glPushMatrix();
+		glColor3f(g.color[0], g.color[1], g.color[2]);
+		//glColor3ub(150, 160, 220);
+		glTranslatef(g.pos[0], g.pos[1], 0.0f);
+		glBegin(GL_QUADS);
+			glVertex2f(-g.w, -g.w);
+			glVertex2f(-g.w,  g.w);
+			glVertex2f( g.w,  g.w);
+			glVertex2f( g.w, -g.w);
+		glEnd();
+		glPopMatrix();
+	}
 }
 
 
